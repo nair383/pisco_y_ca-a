@@ -144,9 +144,9 @@
                 <p>Ñuñoa, Santiago de Chile</p>
                 <div class="map-placeholder">
                     <iframe
-                        src="https://maps.google.com/maps?q=Av%20Irarr%C3%A1zaval%203825%20%C3%B1u%C3%B1oa&t=&z=15&ie=UTF-8&iwloc=&output=embed"
-                        width="100%" height="250" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy">
-                    </iframe>
+    src="https://maps.google.com/maps?q=Av%20Irarr%C3%A1zaval%203825%20%C3%B1u%C3%B1oa&t=&z=15&ie=UTF-8&iwloc=&output=embed"
+    width="100%" height="250" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy">
+</iframe>
                 </div>
             </div>
             <div class="info-block">
@@ -169,25 +169,31 @@
     </a>
 
     <script>
-        const navToggle = document.getElementById('navToggle');
-        const mainNav = document.getElementById('mainNav');
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.getElementById('navToggle');
+            const mainNav = document.getElementById('mainNav');
+            const body = document.body;
 
-        navToggle.addEventListener('click', () => {
-            const isOpen = mainNav.classList.toggle('is-open');
-            navToggle.classList.toggle('is-active', isOpen);
-            navToggle.setAttribute('aria-expanded', isOpen);
-            document.body.classList.toggle('nav-open', isOpen);
-        });
+            // Función única para alternar estados del menú
+            function toggleMenu() {
+                const isOpen = mainNav.classList.toggle('is-open');
+                navToggle.classList.toggle('is-active', isOpen);
+                navToggle.setAttribute('aria-expanded', isOpen);
+                body.classList.toggle('nav-open', isOpen);
+            }
 
-        mainNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mainNav.classList.remove('is-open');
-                navToggle.classList.remove('is-active');
-                navToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('nav-open');
+            // Evento al hacer clic en el botón hamburguesa
+            navToggle.addEventListener('click', toggleMenu);
+
+            // Cerrar menú automáticamente cuando se hace clic en cualquier enlace interno de navegación
+            mainNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav.classList.contains('is-open')) {
+                        toggleMenu();
+                    }
+                });
             });
         });
     </script>
-
 </body>
 </html>
