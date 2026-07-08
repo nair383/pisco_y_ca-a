@@ -1,0 +1,569 @@
+/* ==========================================================================
+   VARIABLES Y CONFIGURACIÓN INICIAL
+   ========================================================================== */
+:root {
+    --primary-color: #e67e22; 
+    --secondary-color: #2c3e50; 
+    --dark-color: #1a1a1a;
+    --light-color: #f9f9f9;
+    --accent-color: #c0392b;
+    --insta-color: #e1306c;
+    --wsp-color: #25d366;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+    padding-top: 75px; 
+}
+
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN COHESIVA
+   ========================================================================== */
+header {
+    background-color: #1a1a1a;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    gap: 15px;
+}
+
+.logo {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.nav-scroll {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none; 
+}
+
+.nav-scroll::-webkit-scrollbar {
+    display: none; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 8px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 12px;
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap; 
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* BOTONES ACCIONES DERECHA */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.nav-insta-icon {
+    color: var(--insta-color);
+    font-size: 22px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.nav-insta-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Botón Verde WhatsApp Superior Estilizado */
+.btn-header-wsp {
+    background-color: var(--wsp-color);
+    color: white;
+    padding: 8px 18px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(37, 211, 102, 0.2);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-header-wsp:hover {
+    background-color: #1cbd55;
+    transform: scale(1.03);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Rediseño Bonito estilo Píldora para el botón "Ver Menú" */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 14px 34px; 
+    text-decoration: none;
+    border-radius: 50px; 
+    font-weight: 700; 
+    font-size: 16px;
+    letter-spacing: 0.5px; 
+    text-transform: uppercase; 
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.35); 
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #d35400; 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.5); 
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(211, 84, 0, 0.4);
+}
+
+.btn-instagram-hero {
+    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    color: white;
+    padding: 14px 34px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-instagram-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
+}
+
+/* ==========================================================================
+   SECCIÓN MENÚ / ESPECIALIDADES
+   ========================================================================== */
+.menu-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.section-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 15px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.menu-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.card-info h3 {
+    margin-bottom: 8px;
+    color: var(--secondary-color);
+    font-size: 19px;
+}
+
+.card-info p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+    min-height: 44px;
+}
+
+.price {
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 17px;
+}
+
+/* ==========================================================================
+   INFO & CONTACTO
+   ========================================================================== */
+.info-section {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 60px 0;
+}
+
+.info-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    align-items: center;
+}
+
+.info-box h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.info-box hr {
+    width: 50px;
+    border: 2px solid var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.info-box p {
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.info-box i {
+    color: var(--primary-color);
+    margin-right: 10px;
+    width: 20px;
+}
+
+.social-links {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-links .insta-link { background-color: var(--insta-color); }
+.social-links .wsp-link { background-color: var(--wsp-color); }
+
+.map-box iframe {
+    display: block;
+    width: 100%;
+}
+
+/* ==========================================================================
+   BOTÓN FLOTANTE INSTAGRAM
+   ========================================================================== */
+.instagram-floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+    background-color: var(--dark-color);
+    color: #777;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 13px;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE SEGURO)
+   ========================================================================== */
+@media (max-width: 600px) {
+    body {
+        padding-top: 65px; 
+    }
+
+    .navbar {
+        padding: 10px 0;
+        gap: 8px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .nav-scroll {
+        flex-grow: 1;
+        justify-content: flex-start;
+        padding: 0 4px;
+    }
+
+    nav ul {
+        gap: 2px;
+    }
+
+    nav ul li a {
+        padding: 6px 6px;
+        font-size: 13px;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .nav-insta-icon {
+        font-size: 18px;
+    }
+
+    /* En celulares muy pequeños esconde el texto "Pedir" y deja solo el icono de wsp para que no ocupe espacio extra */
+    .btn-header-wsp {
+        padding: 8px 10px;
+    }
+    .btn-header-wsp span {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 { font-size: 26px; }
+    .hero-content p { font-size: 14px; }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .hero-buttons a {
+        display: block;
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+        border-radius: 50px;
+    }
+}
+/* ==========================================================================
+   AGREGADOS EXCLUSIVOS PARA SECCIÓN CARTA Y RESPONSIVE DINÁMICO
+   ========================================================================== */
+
+/* Ajustes estructurales de elementos nuevos en carta.html */
+.menu-page-banner {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
+    padding: 50px 0;
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.menu-page-banner h1 {
+    font-size: 36px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+.category-title {
+    font-size: 24px;
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+    text-align: left;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 12px;
+}
+
+.menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.menu-item-header h3 {
+    font-size: 17px;
+    color: var(--dark-color);
+}
+
+/* Enlace activo de navegación */
+.active-link {
+    background-color: rgba(230, 126, 34, 0.2);
+    border-radius: 4px;
+    color: var(--primary-color) !important;
+}
+
+/* ==========================================================================
+   PULIDO RESPONSIVE MÓVIL CRÍTICO (TODAS LAS PANTALLAS CHICAS)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .menu-page-banner h1 { font-size: 28px; }
+    .category-title { font-size: 20px; }
+}
+
+@media (max-width: 600px) {
+    /* Impedir que la cabecera rompa los layouts */
+    header {
+        padding: 0 4px;
+    }
+    
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 4px;
+    }
+
+    .logo {
+        font-size: 15px; /* Reducción leve para que quepa junto a las acciones */
+    }
+
+    /* Solución elegante de scroll para el menú horizontal de navegación superior */
+    .nav-scroll {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 0;
+        margin: 0 4px;
+    }
+
+    nav ul {
+        gap: 4px;
+    }
+
+    nav ul li a {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    /* Manejo inteligente de los precios de la carta */
+    .menu-item-header {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .menu-item-header .price {
+        font-size: 15px;
+        background-color: rgba(192, 57, 43, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 380px) {
+    /* Pantallas extra delgadas */
+    .logo {
+        font-size: 13px;
+    }
+    nav ul li a {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+}
