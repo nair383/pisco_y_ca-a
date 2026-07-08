@@ -1,486 +1,276 @@
-/* ==========================================================================
-   VARIABLES Y CONFIGURACIÓN INICIAL
-   ========================================================================== */
-:root {
-    --primary-color: #e67e22; 
-    --secondary-color: #2c3e50; 
-    --dark-color: #1a1a1a;
-    --light-color: #f9f9f9;
-    --accent-color: #c0392b;
-    --insta-color: #e1306c;
-    --wsp-color: #25d366;
-}
-
+/* RESET GENERAL */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-html {
     scroll-behavior: smooth;
 }
 
-body {
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    line-height: 1.6;
-    padding-top: 75px; 
+:root {
+    --bg-dark: #0f0f12;
+    --bg-card: #18181f;
+    --accent-gold: #d4af37;
+    --accent-neon: #ff3366;
+    --text-white: #f5f5f7;
+    --text-muted: #a0a0ab;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    --header-height: 65px;
 }
 
-.container {
-    width: 92%;
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Evita el scroll del fondo cuando el menú móvil está abierto */
+body.nav-open {
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* HEADER Y NAVEGACIÓN */
+header {
+    background-color: rgba(15, 15, 18, 0.95);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.header-container {
     max-width: 1200px;
     margin: 0 auto;
-}
-
-/* ==========================================================================
-   BARRA DE NAVEGACIÓN COHESIVA
-   ========================================================================== */
-header {
-    background-color: #1a1a1a;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-}
-
-.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    gap: 15px;
+    padding: 12px 20px;
+    height: var(--header-height);
 }
 
-.logo {
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
+.logo h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(18px, 4vw, 22px);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     white-space: nowrap;
-    flex-shrink: 0;
 }
 
 .logo span {
-    color: var(--primary-color);
+    color: var(--accent-gold);
 }
 
-.nav-scroll {
+.logo .tagline {
+    font-size: 10px;
+    color: var(--accent-neon);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+nav {
     display: flex;
     align-items: center;
-    overflow-x: auto;
-    scrollbar-width: none; 
 }
 
-.nav-scroll::-webkit-scrollbar {
-    display: none; 
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    align-items: center;
-    gap: 8px;
-}
-
-nav ul li a {
-    color: #fff;
+nav a {
+    color: var(--text-white);
     text-decoration: none;
-    padding: 6px 12px;
-    font-size: 15px;
+    margin-left: 20px;
     font-weight: 500;
-    white-space: nowrap; 
+    font-size: 14px;
     transition: color 0.3s;
 }
 
-nav ul li a:hover {
-    color: var(--primary-color);
+nav a:hover {
+    color: var(--accent-gold);
 }
 
-/* BOTONES ACCIONES DERECHA */
-.header-actions {
-    display: flex;
+/* Botón hamburguesa (oculto en escritorio) */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
 }
 
-.nav-insta-icon {
-    color: var(--insta-color);
-    font-size: 22px;
-    text-decoration: none;
-    transition: transform 0.2s;
+.nav-toggle span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background-color: var(--text-white);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.nav-insta-icon:hover {
-    transform: scale(1.1);
+/* Animaciones del botón hamburguesa activo */
+.nav-toggle.is-active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
 }
 
-/* Botón Verde WhatsApp Superior Estilizado */
-.btn-header-wsp {
-    background-color: var(--wsp-color);
-    color: white;
-    padding: 8px 18px;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    box-shadow: 0 3px 10px rgba(37, 211, 102, 0.2);
-    transition: background 0.3s, transform 0.2s;
+.nav-toggle.is-active span:nth-child(2) {
+    opacity: 0;
 }
 
-.btn-header-wsp:hover {
-    background-color: #1cbd55;
-    transform: scale(1.03);
+.nav-toggle.is-active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ==========================================================================
-   HERO SECTION
-   ========================================================================== */
+/* HERO SECTION */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
-    height: 70vh;
+    min-height: 70vh;
+    min-height: 70dvh;
+    background: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1200') no-repeat center center/cover;
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    color: white;
+    padding: 40px 20px;
+    margin-top: var(--header-height);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(15,15,18,0.6), rgba(15,15,18,1));
 }
 
 .hero-content {
-    width: 100%;
+    position: relative;
+    z-index: 10;
+    max-width: 700px;
 }
 
-.hero-content h1 {
-    font-size: 40px;
-    margin-bottom: 15px;
+.badge {
+    background-color: var(--accent-neon);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: bold;
     text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 15px;
     letter-spacing: 1px;
 }
 
-.hero-content p {
-    font-size: 18px;
-    margin-bottom: 30px;
+.hero h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 6vw, 42px);
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.2;
 }
 
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+.hero p {
+    color: var(--text-muted);
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 25px;
 }
 
-/* Rediseño Bonito estilo Píldora para el botón "Ver Menú" */
 .btn-primary {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 14px 34px; 
+    background-color: var(--accent-gold);
+    color: var(--bg-dark);
+    padding: 14px 30px;
+    border-radius: 8px;
     text-decoration: none;
-    border-radius: 50px; 
-    font-weight: 700; 
-    font-size: 16px;
-    letter-spacing: 0.5px; 
-    text-transform: uppercase; 
-    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.35); 
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: transform 0.3s, background-color 0.3s;
     display: inline-block;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    cursor: pointer;
 }
 
 .btn-primary:hover {
-    background-color: #d35400; 
-    transform: translateY(-3px); 
-    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.5); 
+    transform: translateY(-2px);
+    background-color: #fff;
 }
 
-.btn-primary:active {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(211, 84, 0, 0.4);
-}
-
-.btn-instagram-hero {
-    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
-    color: white;
-    padding: 14px 34px;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 16px;
-    display: inline-block;
-    transition: all 0.3s ease;
-}
-
-.btn-instagram-hero:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
-}
-
-/* ==========================================================================
-   SECCIÓN MENÚ / ESPECIALIDADES
-   ========================================================================== */
+/* CARTA SECCIÓN */
 .menu-section {
-    padding: 60px 0;
-    text-align: center;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
 }
 
 .section-title {
-    font-size: 32px;
-    margin-bottom: 10px;
-    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 50px;
 }
 
-.section-subtitle {
-    color: #666;
-    margin-bottom: 40px;
-    font-size: 15px;
+.section-title h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 5vw, 32px);
+    text-transform: uppercase;
+}
+
+.divider {
+    width: 60px;
+    height: 4px;
+    background-color: var(--accent-gold);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.menu-category {
+    margin-bottom: 50px;
+}
+
+.menu-category h3 {
+    font-family: var(--font-heading);
+    color: var(--accent-gold);
+    font-size: clamp(18px, 4vw, 22px);
+    margin-bottom: 25px;
+    border-left: 4px solid var(--accent-neon);
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 25px;
 }
 
-.menu-card {
-    background: white;
+.menu-item {
+    background-color: var(--bg-card);
+    padding: 25px;
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s, border-color 0.3s;
 }
 
-.menu-card:hover {
-    transform: translateY(-5px);
+.menu-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.3);
 }
 
-.card-img {
-    height: 220px;
-    background-size: cover;
-    background-position: center;
-}
-
-.card-info {
-    padding: 20px;
-    text-align: left;
-}
-
-.card-info h3 {
-    margin-bottom: 8px;
-    color: var(--secondary-color);
-    font-size: 19px;
-}
-
-.card-info p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 15px;
-    min-height: 44px;
-}
-
-.price {
-    font-weight: bold;
-    color: var(--accent-color);
-    font-size: 17px;
-}
-
-/* ==========================================================================
-   INFO & CONTACTO
-   ========================================================================== */
-.info-section {
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 60px 0;
-}
-
-.info-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    align-items: center;
-}
-
-.info-box h2 {
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-.info-box hr {
-    width: 50px;
-    border: 2px solid var(--primary-color);
-    margin-bottom: 25px;
-}
-
-.info-box p {
-    margin-bottom: 15px;
-    font-size: 15px;
-}
-
-.info-box i {
-    color: var(--primary-color);
-    margin-right: 10px;
-    width: 20px;
-}
-
-.social-links {
-    margin-top: 30px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.social-links a {
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.social-links .insta-link { background-color: var(--insta-color); }
-.social-links .wsp-link { background-color: var(--wsp-color); }
-
-.map-box iframe {
-    display: block;
-    width: 100%;
-}
-
-/* ==========================================================================
-   BOTÓN FLOTANTE INSTAGRAM
-   ========================================================================== */
-.instagram-floating-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: white;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
-    text-decoration: none;
-}
-
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
-footer {
-    background-color: var(--dark-color);
-    color: #777;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 13px;
-}
-
-/* ==========================================================================
-   MEDIA QUERIES (RESPONSIVE SEGURO)
-   ========================================================================== */
-@media (max-width: 600px) {
-    body {
-        padding-top: 65px; 
-    }
-
-    .navbar {
-        padding: 10px 0;
-        gap: 8px;
-    }
-
-    .logo {
-        font-size: 17px;
-    }
-
-    .nav-scroll {
-        flex-grow: 1;
-        justify-content: flex-start;
-        padding: 0 4px;
-    }
-
-    nav ul {
-        gap: 2px;
-    }
-
-    nav ul li a {
-        padding: 6px 6px;
-        font-size: 13px;
-    }
-
-    .header-actions {
-        gap: 6px;
-    }
-
-    .nav-insta-icon {
-        font-size: 18px;
-    }
-
-    /* En celulares muy pequeños esconde el texto "Pedir" y deja solo el icono de wsp para que no ocupe espacio extra */
-    .btn-header-wsp {
-        padding: 8px 10px;
-    }
-    .btn-header-wsp span {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-content h1 { font-size: 26px; }
-    .hero-content p { font-size: 14px; }
-    
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .hero-buttons a {
-        display: block;
-        width: 100%;
-        max-width: 280px;
-        text-align: center;
-        border-radius: 50px;
-    }
-}
-/* ==========================================================================
-   AGREGADOS EXCLUSIVOS PARA SECCIÓN CARTA Y RESPONSIVE DINÁMICO
-   ========================================================================== */
-
-/* Ajustes estructurales de elementos nuevos en carta.html */
-.menu-page-banner {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
-    padding: 50px 0;
-    text-align: center;
-    color: white;
-    margin-bottom: 30px;
-}
-
-.menu-page-banner h1 {
-    font-size: 36px;
-    color: var(--primary-color);
-    text-transform: uppercase;
-}
-
-.category-title {
-    font-size: 24px;
-    color: var(--secondary-color);
-    margin-bottom: 25px;
-    text-align: left;
-    border-left: 5px solid var(--primary-color);
-    padding-left: 12px;
-}
-
-.menu-item-header {
+.item-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -488,82 +278,244 @@ footer {
     margin-bottom: 10px;
 }
 
-.menu-item-header h3 {
-    font-size: 17px;
-    color: var(--dark-color);
+.item-header h4 {
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 700;
+    color: var(--text-white);
 }
 
-/* Enlace activo de navegación */
-.active-link {
-    background-color: rgba(230, 126, 34, 0.2);
+.price {
+    color: var(--accent-gold);
+    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    background-color: rgba(212, 175, 55, 0.1);
+    padding: 3px 9px;
     border-radius: 4px;
-    color: var(--primary-color) !important;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-/* ==========================================================================
-   PULIDO RESPONSIVE MÓVIL CRÍTICO (TODAS LAS PANTALLAS CHICAS)
-   ========================================================================== */
+.menu-item p {
+    color: var(--text-muted);
+    font-size: 13.5px;
+}
+
+/* INFORMACIÓN & RESERVAS */
+.info-section {
+    background-color: var(--bg-card);
+    padding: 60px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.info-block h3 {
+    font-family: var(--font-heading);
+    color: var(--accent-gold);
+    font-size: clamp(18px, 4vw, 20px);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-block p {
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.map-placeholder {
+    margin-top: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.map-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+}
+
+.btn-whatsapp-large {
+    background-color: #25d366;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 320px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-whatsapp-large:hover {
+    background-color: #1ebd58;
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: #0b0b0d;
+}
+
+footer p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.sub-footer {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 5px;
+}
+
+/* BOTÓN FLOTANTE WHATSAPP */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #1ebd58;
+}
+
+/* ============================= */
+/* RESPONSIVE DESIGN — TABLET    */
+/* ============================= */
+@media (max-width: 900px) {
+    .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+/* ============================= */
+/* RESPONSIVE DESIGN — MÓVIL     */
+/* ============================= */
 @media (max-width: 768px) {
-    .menu-page-banner h1 { font-size: 28px; }
-    .category-title { font-size: 20px; }
-}
-
-@media (max-width: 600px) {
-    /* Impedir que la cabecera rompa los layouts */
-    header {
-        padding: 0 4px;
-    }
-    
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        gap: 4px;
+    .header-container {
+        padding: 10px 20px;
     }
 
-    .logo {
-        font-size: 15px; /* Reducción leve para que quepa junto a las acciones */
+    .nav-toggle {
+        display: flex; /* Muestra el botón hamburguesa */
     }
 
-    /* Solución elegante de scroll para el menú horizontal de navegación superior */
-    .nav-scroll {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 4px 0;
-        margin: 0 4px;
-    }
-
-    nav ul {
-        gap: 4px;
-    }
-
-    nav ul li a {
-        padding: 6px 10px;
-        font-size: 13px;
-    }
-
-    /* Manejo inteligente de los precios de la carta */
-    .menu-item-header {
+    nav {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        height: calc(100dvh - var(--header-height));
+        background-color: rgba(15, 15, 18, 0.98);
+        backdrop-filter: blur(10px);
         flex-direction: column;
-        gap: 2px;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        transform: translateX(100%); /* Oculto por defecto hacia la derecha */
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.35s ease, opacity 0.35s ease, visibility 0.35s;
     }
-    
-    .menu-item-header .price {
-        font-size: 15px;
-        background-color: rgba(192, 57, 43, 0.1);
-        padding: 2px 8px;
-        border-radius: 4px;
-        display: inline-block;
+
+    /* Clase que se activa con JavaScript */
+    nav.is-open {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    nav a {
+        margin-left: 0;
+        font-size: 20px;
+        padding: 14px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero {
+        min-height: 65dvh;
+        padding: 30px 20px;
+    }
+
+    .menu-section {
+        margin: 45px auto;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .menu-item {
+        padding: 20px;
+    }
+
+    .info-section {
+        padding: 45px 20px;
+    }
+
+    .info-container {
+        gap: 35px;
+    }
+
+    .btn-whatsapp-large {
+        width: 100%;
+        max-width: none;
+    }
+
+    .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        font-size: 26px;
+        bottom: 20px;
+        right: 20px;
     }
 }
 
-@media (max-width: 380px) {
-    /* Pantallas extra delgadas */
-    .logo {
-        font-size: 13px;
+/* ============================= */
+/* RESPONSIVE DESIGN — MÓVIL XS  */
+/* ============================= */
+@media (max-width: 400px) {
+    .logo .tagline {
+        display: none;
     }
-    nav ul li a {
-        font-size: 12px;
-        padding: 4px 6px;
+
+    .item-header {
+        flex-wrap: wrap;
+    }
+
+    .menu-item {
+        padding: 16px;
     }
 }
